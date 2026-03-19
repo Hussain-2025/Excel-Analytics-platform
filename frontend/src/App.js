@@ -1,3 +1,4 @@
+// frontend/src/App.js
 import React, { useState, useEffect } from "react";
 import {
   BrowserRouter as Router,
@@ -24,15 +25,15 @@ function AppContent({ user, setUser }) {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Redirect to home page on refresh if logged in
   useEffect(() => {
     const token = localStorage.getItem("token");
     const isFirstLoad =
       performance.getEntriesByType("navigation")[0]?.type === "reload";
+
     if (token && isFirstLoad && location.pathname !== "/") {
       navigate("/", { replace: true });
     }
-  }, []);
+  }, [location.pathname, navigate]);
 
   return (
     <>

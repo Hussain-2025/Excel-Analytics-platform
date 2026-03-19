@@ -1,5 +1,6 @@
+// frontend/src/pages/Register.js
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import API from "../services/API";
 import "../styles/Register.css";
 
@@ -17,7 +18,8 @@ function Register({ setUser }) {
 
     if (name && email && password) {
       try {
-        const res = await API.post("/auth/register", { name, email, password });
+        await API.post("/auth/register", { name, email, password });
+
         setSuccess(true);
         setName("");
         setEmail("");
@@ -35,7 +37,9 @@ function Register({ setUser }) {
       <div className="register-content">
         <form onSubmit={handleRegister} className="form-content">
           <h2>Register</h2>
+
           {error && <div className="error">{error}</div>}
+
           {success && (
             <div
               style={{
@@ -51,6 +55,7 @@ function Register({ setUser }) {
               Register done
             </div>
           )}
+
           <input
             type="text"
             placeholder="Name"
@@ -58,19 +63,23 @@ function Register({ setUser }) {
             onChange={(e) => setName(e.target.value)}
             autoFocus
           />
+
           <input
             type="email"
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
+
           <input
             type="password"
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
+
           <button type="submit">Register</button>
+
           <div style={{ marginTop: "1rem", textAlign: "center" }}>
             <Link to="/login">
               <button type="button">Back to Login</button>
